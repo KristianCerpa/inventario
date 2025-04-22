@@ -16,12 +16,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(10);
+    $search = $request->input('search');
+    $products = Product::query()
+        ->when($search, function ($query, $search) {
+            return $query->where('nombre', 'like', '%' . $search . '%')
+                         ->orWhere('codigo', 'like', '%' . $search . '%')
+                         ->orWhere('descripcion', 'like', '%' . $search . '%'); // Puedes añadir más campos
+        })
+        ->paginate(10);
 
-        return view('product.index', compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * $products->perPage());
+    return view('product.index', compact('products'))
+        ->with('i', (request()->input('page', 1) - 1) * $products->perPage())
+        ->with('search', $search); // Opcional: pasar el término de búsqueda a la vista para mantenerlo en el input
     }
 
     /**
