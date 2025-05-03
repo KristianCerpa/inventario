@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_entries', function (Blueprint $table) {
+        Schema::create('Entries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Clave foránea al producto
-            $table->enum('type', ['compra', 'devolucion']); // Tipo de entrada
+            $table->enum('type', ['compra', 'devolucion']); // Tipo de entrada: 'compra' o 'devolucion'
             $table->integer('quantity'); // Cantidad de productos que entran
             $table->text('notes')->nullable(); // Notas adicionales sobre la entrada
-      
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_entries');
+        Schema::dropIfExists('Entries');
     }
 };

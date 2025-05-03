@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class InventoryEntry
+ * Class Output
  *
  * @property $id
  * @property $product_id
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class InventoryEntry extends Model
+class Output extends Model
 {
     
     static $rules = [

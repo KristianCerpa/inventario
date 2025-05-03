@@ -158,7 +158,12 @@ return [
         [
             'text' => 'Entradas Productos',
             'icon' => 'ti ti-home',
-            'url' => 'inventoryentries'
+            'url' => 'entries'
+        ],
+        [
+            'text' => 'Salidas Productos',
+            'icon' => 'ti ti-home',
+            'url' => 'outputs'
         ],
         [
             'text' => 'Registro',

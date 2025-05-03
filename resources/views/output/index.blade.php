@@ -1,7 +1,7 @@
 @extends('tablar::page')
 
 @section('title')
-    Inventory Entry
+    Output
 @endsection
 
 @section('content')
@@ -15,13 +15,13 @@
                         List
                     </div>
                     <h2 class="page-title">
-                        {{ __('Inventory Entry ') }}
+                        {{ __('Output ') }}
                     </h2>
                 </div>
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href="{{ route('inventoryentries.create') }}" class="btn btn-primary d-none d-sm-inline-block">
+                        <a href="{{ route('outputs.create') }}" class="btn btn-primary d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -30,7 +30,7 @@
                                 <line x1="12" y1="5" x2="12" y2="19"/>
                                 <line x1="5" y1="12" x2="19" y2="12"/>
                             </svg>
-                            Create Inventory Entry
+                            Create Output
                         </a>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Inventory Entry</h3>
+                            <h3 class="card-title">Output</h3>
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
@@ -95,16 +95,16 @@
                                 </thead>
 
                                 <tbody>
-                                @forelse ($inventoryEntries as $inventoryEntry)
+                                @forelse ($outputs as $output)
                                     <tr>
                                         <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                   aria-label="Select inventoryEntry"></td>
+                                                   aria-label="Select output"></td>
                                         <td>{{ ++$i }}</td>
                                         
-											<td>{{ $inventoryEntry->product_id }}</td>
-											<td>{{ $inventoryEntry->type }}</td>
-											<td>{{ $inventoryEntry->quantity }}</td>
-											<td>{{ $inventoryEntry->notes }}</td>
+											<td>{{ $output->product_id }}</td>
+											<td>{{ $output->type }}</td>
+											<td>{{ $output->quantity }}</td>
+											<td>{{ $output->notes }}</td>
 
                                         <td>
                                             <div class="btn-list flex-nowrap">
@@ -115,15 +115,15 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <a class="dropdown-item"
-                                                           href="{{ route('inventoryentries.show',$inventoryEntry->id) }}">
+                                                           href="{{ route('outputs.show',$output->id) }}">
                                                             View
                                                         </a>
                                                         <a class="dropdown-item"
-                                                           href="{{ route('inventoryentries.edit',$inventoryEntry->id) }}">
+                                                           href="{{ route('outputs.edit',$output->id) }}">
                                                             Edit
                                                         </a>
                                                         <form
-                                                            action="{{ route('inventoryentries.destroy',$inventoryEntry->id) }}"
+                                                            action="{{ route('outputs.destroy',$output->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
@@ -147,7 +147,7 @@
                             </table>
                         </div>
                        <div class="card-footer d-flex align-items-center">
-                            {!! $inventoryEntries->links('tablar::pagination') !!}
+                            {!! $outputs->links('tablar::pagination') !!}
                         </div>
                     </div>
                 </div>
