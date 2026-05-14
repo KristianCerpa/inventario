@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ["nodejs_22"]
+
+[phases.build]
+cmds = [
+  "npm ci --production=false",
+  "npm run build",
+  "php artisan key:generate --force",
+  "php artisan storage:link"
+]
+
+[phases.deploy]
+cmds = [
+  "php artisan migrate --force"
+]
