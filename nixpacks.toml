@@ -3,6 +3,7 @@ nixPkgs = ["nodejs_22", "php83", "php83Packages.composer", "php83Extensions.pdo"
 
 [phases.install]
 cmds = [
+  "cp .env.example .env",
   "composer install --no-interaction --prefer-dist --no-dev",
   "npm ci"
 ]
