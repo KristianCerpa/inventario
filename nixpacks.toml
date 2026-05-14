@@ -4,7 +4,7 @@ nixPkgs = ["nodejs_22", "php83", "php83Packages.composer", "php83Extensions.pdo"
 [phases.install]
 cmds = [
   "cp .env.example .env",
-  "composer install --no-interaction --prefer-dist --no-dev",
+  "composer install --no-interaction --prefer-dist --no-dev --no-scripts",
   "npm ci"
 ]
 
@@ -12,5 +12,6 @@ cmds = [
 cmds = [
   "npm run build 2>&1",
   "php artisan key:generate --force",
-  "php artisan storage:link"
+  "php artisan storage:link",
+  "php artisan package:discover --ansi"
 ]
