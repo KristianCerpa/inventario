@@ -1,10 +1,15 @@
 [phases.setup]
-nixPkgs = ["nodejs_22", "php83", "php83Packages.composer", "php83Extensions.pdo", "php83Extensions.pdo_pgsql"]
+nixPkgs = ["nodejs_22", "php83", "php83Packages.composer", "php83Extensions.pdo", "php83Extensions.pdo_pgsql", "php83Extensions.dom", "php83Extensions.mbstring", "php83Extensions.xml", "php83Extensions.xmlwriter", "php83Extensions.gd", "php83Extensions.bcmath", "php83Extensions.ctype", "php83Extensions.fileinfo", "php83Extensions.json", "php83Extensions.tokenizer"]
+
+[phases.install]
+cmds = [
+  "composer install --no-interaction --prefer-dist --no-dev",
+  "npm ci"
+]
 
 [phases.build]
 cmds = [
-  "npm ci --production=false",
-  "npm run build",
+  "npm run build 2>&1",
   "php artisan key:generate --force",
   "php artisan storage:link"
 ]
