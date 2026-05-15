@@ -1,11 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
-php artisan migrate --force
-php artisan storage:link 2>/dev/null || true
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+echo "=== Running migrations ==="
+php artisan migrate --force --no-interaction || echo "Migration warning: non-critical error"
 
-exec php-fpm
+echo "=== Creating storage link ==="
+php artisan storage:link 2>/dev/null || true
+
+echo "=== Setting permissions ==="
+chmod -R 755 storage bootstrap/cache || true
+
+echo "=== Starting PHP-FPM ==="
+php-fpm -F

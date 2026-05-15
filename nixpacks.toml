@@ -14,4 +14,4 @@ cmds = [
 ]
 
 [start]
-cmd = "chmod +x ./railway/init-app.sh && sh ./railway/init-app.sh"
+cmd = "chmod +x ./railway/start.sh && bash ./railway/start.sh"
