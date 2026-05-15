@@ -1,14 +1,19 @@
 [phases.setup]
-nixPkgs = ["nodejs_22", "php83", "php83Packages.composer", "php83Extensions.pdo", "php83Extensions.pdo_pgsql", "php83Extensions.dom", "php83Extensions.mbstring", "php83Extensions.xml", "php83Extensions.xmlwriter", "php83Extensions.gd", "php83Extensions.bcmath", "php83Extensions.ctype", "php83Extensions.fileinfo", "php83Extensions.tokenizer"]
+nixPkgs = ["nodejs_22", "php83", "php83Packages.composer", "php83Extensions.pdo", "php83Extensions.pdo_pgsql", "php83Extensions.dom", "php83Extensions.mbstring", "php83Extensions.xml", "php83Extensions.xmlwriter", "php83Extensions.gd", "php83Extensions.bcmath", "php83Extensions.ctype", "php83Extensions.fileinfo", "php83Extensions.tokenizer", "php83Extensions.opcache", "php83Extensions.zip"]
 
 [phases.install]
 cmds = [
   "cp .env.example .env",
-  "composer install --no-interaction --prefer-dist --no-dev --no-scripts",
+  "composer install --no-interaction --prefer-dist --no-dev",
   "npm ci"
 ]
 
 [phases.build]
 cmds = [
+  "php artisan key:generate",
+  "php artisan config:clear",
   "npm run build 2>&1"
 ]
+
+[start]
+cmd = "chmod +x ./railway/init-app.sh && sh ./railway/init-app.sh"
