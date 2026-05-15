@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable error display for debugging
+export APP_DEBUG=true
+
 # Debug: print environment variables
 echo "=== Environment Variables ==="
 env | sort
@@ -44,10 +47,21 @@ echo "DB_DATABASE=$DB_DATABASE"
 echo "DB_USERNAME=$DB_USERNAME"
 echo "PORT=$PORT"
 
+# Set permissions
+echo "=== Setting permissions ==="
+chmod -R 777 storage bootstrap/cache 2>&1 || true
+
+# Clear caches
+echo "=== Clearing caches ==="
+php artisan config:clear 2>&1 || true
+php artisan cache:clear 2>&1 || true
+php artisan route:clear 2>&1 || true
+php artisan view:clear 2>&1 || true
+
 # Run migrations
 echo "=== Running migrations ==="
 php artisan migrate --force --no-interaction 2>&1 || echo "Migrations completed with warnings"
 
-# Start the server
+# Start the server with error logging
 echo "=== Starting server ==="
 php artisan serve --host=0.0.0.0 --port=${PORT:-3000}
